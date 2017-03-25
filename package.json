@@ -1,0 +1,20 @@
+{
+  "name": "whiteprint",
+  "version": "0.1.0",
+  "typings": "./dist/index.d.ts",
+  "scripts": {
+    "watch": "webpack --progress --profile --watch"
+  },
+  "devDependencies": {
+    "@types/classnames": "0.0.32",
+    "@types/mithril": "github:spacejack/mithril.d.ts#1.0.2",
+    "awesome-typescript-loader": "^3.1.2",
+    "classnames": "^2.2.5",
+    "mithril": "lhorie/mithril.js#next",
+    "source-map-loader": "^0.2.0",
+    "tslint": "^4.5.1",
+    "tslint-loader": "^3.4.3",
+    "typescript": "^2.2.1",
+    "webpack": "^2.3.2"
+  }
+}
