@@ -8,9 +8,11 @@
   <body>
     <script src="../node_modules/mithril/mithril.min.js"></script>
     <script src="../dist/bundle.js"></script>
-    <div id="demo"></div>
+    <div id="demo1"></div>
+    <div id="demo2"></div>
     <script>
-      m.mount(document.getElementById("demo"), whiteprint.Button)
+      m.render(document.getElementById("demo1"), m(whiteprint.Button, {test: 'test Attribute'}, m('b', 'HI')))
+      m.render(document.getElementById("demo2"), m(whiteprint.AnchorButton, {test: 'test Attribute'}, m('b', 'HI')))
     </script>
   </body>
 </html>

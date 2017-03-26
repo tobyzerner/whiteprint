@@ -10,13 +10,13 @@ module.exports = {
     loaders: [
       {
         test: /\.tsx?$/,
-        loader: 'awesome-typescript-loader'
+        loader: 'tslint-loader',
+        enforce: 'pre'
       },
       {
         test: /\.tsx?$/,
-        loader: 'tslint-loader',
-        enforce: 'pre'
-      }
+        loader: 'awesome-typescript-loader'
+      },
     ]
   },
   plugins: [
