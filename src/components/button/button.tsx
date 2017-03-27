@@ -12,7 +12,7 @@ export class Button extends AbstractButton {
                 {...vnode.attrs}
                 {...this.getCommonButtonAttrs(vnode)}
             >
-                {vnode.children}
+                {this.renderChildren(vnode)}
             </button>
         );
     }
@@ -31,7 +31,7 @@ export class AnchorButton extends AbstractButton {
                 href={commonAttrs.disabled ? undefined : href}
                 tabIndex={commonAttrs.disabled ? undefined : tabIndex}
             >
-                {vnode.children}
+                {this.renderChildren(vnode)}
             </a>
         );
     }

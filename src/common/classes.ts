@@ -5,6 +5,8 @@
  * and https://github.com/palantir/blueprint/blob/master/PATENTS
  */
 
+import { Intent } from "./intent";
+
 // modifiers
 export const DARK = "pt-dark";
 export const ACTIVE = "pt-active";
@@ -190,4 +192,11 @@ export function iconClass(iconName: string) {
         return undefined;
     }
     return iconName.indexOf("pt-icon-") === 0 ? iconName : `pt-icon-${iconName}`;
+}
+
+export function intentClass(intent = Intent.NONE) {
+    if (intent === Intent.NONE || Intent[intent] == null) {
+        return undefined;
+    }
+    return `pt-intent-${Intent[intent].toLowerCase()}`;
 }
