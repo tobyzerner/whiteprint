@@ -8,9 +8,6 @@ import { safeInvoke } from "../../common/utils";
 import { Spinner } from "../spinner/spinner";
 
 export interface IButtonAttrs extends m.Attributes {
-    /** A ref handler that receives the native HTML element backing this component. */
-    elementRef?: (ref: HTMLElement) => any;
-
     /** Name of the icon (the part after `pt-icon-`) to add to the button. */
     rightIconName?: string;
 
@@ -39,6 +36,7 @@ export interface IButtonAttrs extends m.Attributes {
 export abstract class AbstractButton extends AbstractComponent<IButtonAttrs> {
     protected isActive = false;
     protected currentKeyDown: number = null;
+    protected elementRef?: HTMLElement;
 
     protected getCommonButtonAttrs(vnode: m.CVnode<IButtonAttrs>) {
         const attrs = vnode.attrs || {} as IButtonAttrs;
@@ -52,42 +50,50 @@ export abstract class AbstractButton extends AbstractComponent<IButtonAttrs> {
                 [Classes.LOADING]: attrs.loading,
             },
             Classes.iconClass(attrs.iconName),
-            // Classes.intentClass(attrs.intent),
+            Classes.intentClass(attrs.intent),
             attrs.className,
         );
 
         return {
             className,
             disabled,
-            onclick: disabled ? undefined : attrs.onClick,
+            onclick: disabled ? undefined : attrs.onclick,
             // should be cleanup after https://github.com/lhorie/mithril.js/issues/1744
-            // onkeydown: this.handleKeyDown,
-            // onkeyup: this.handleKeyUp,
+            onkeydown: this.handleKeyDown,
+            onkeyup: this.handleKeyUp,
         };
+    }
+
+    public oncreate({dom}: m.CVnodeDOM<IButtonAttrs>) {
+        this.elementRef = dom as HTMLElement;
+    }
+
+    public onupdate({dom}: m.CVnodeDOM<IButtonAttrs>) {
+        this.elementRef = dom as HTMLElement;
     }
 
     // we're casting as `any` to get around a somewhat opaque safeInvoke error
     // that "Type argument candidate 'KeyboardEvent<T>' is not a valid type
     // argument because it is not a supertype of candidate
     // 'KeyboardEvent<HTMLElement>'."
-    protected handleKeyDown = (e: any, vnode: m.CVnodeDOM<IButtonAttrs>) => {
-        if (isKeyboardClick(e.keyCode)) {
+    protected handleKeyDown = (e: KeyboardEvent) => {
+        if (isKeyboardClick(e.which)) {
             e.preventDefault();
             if (e.keyCode !== this.currentKeyDown) {
                 this.isActive = true;
             }
         }
         this.currentKeyDown = e.keyCode;
-        safeInvoke(vnode.attrs.onkeydown, e);
+        // safeInvoke(vnode.attrs.onkeydown, e);
     }
 
-    protected handleKeyUp = (e: any, vnode: m.CVnodeDOM<IButtonAttrs>) => {
-        if (isKeyboardClick(e.keyCode)) {
+    protected handleKeyUp = (e: KeyboardEvent) => {
+        if (isKeyboardClick(e.which)) {
             this.isActive = false;
-            // this.buttonRef.click();
+            this.elementRef.click();
         }
         this.currentKeyDown = null;
-        safeInvoke(vnode.attrs.onkeyup, e);
+        // safeInvoke(vnode.attrs.onkeyup, e);
     }
 
     protected renderChildren(vnode: m.CVnode<IButtonAttrs>) {
