@@ -9,13 +9,20 @@
     "@types/classnames": "0.0.32",
     "@types/mithril": "github:spacejack/mithril.d.ts#dt-umd",
     "awesome-typescript-loader": "^3.1.2",
+    "bourbon": "4.3.2",
     "classnames": "^2.2.5",
+    "css-loader": "^0.27.3",
+    "extract-text-webpack-plugin": "^2.1.0",
     "mithril": "lhorie/mithril.js#next",
+    "node-sass": "^4.5.1",
+    "sass-loader": "^6.0.3",
     "source-map-loader": "^0.2.0",
+    "style-loader": "^0.16.0",
     "tslint": "^4.5.1",
     "tslint-loader": "^3.4.3",
     "tslint-react": "^2.5.0",
     "typescript": "^2.2.1",
+    "url-loader": "^0.5.8",
     "webpack": "^2.3.2"
   }
 }
