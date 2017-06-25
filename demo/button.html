@@ -11,6 +11,10 @@
     <script src="../dist/bundle.js"></script>
     <div id="demo1"></div>
     <div id="demo2"></div>
+    <button type="button" class="pt-button pt-icon-add">Default button</button>
+    <button type="button" class="pt-button pt-icon-refresh"></button>
+    <button type="button" class="pt-button pt-large pt-icon-add">Large button</button>
+    <button type="button" class="pt-button pt-large pt-icon-refresh"></button>
     <script>
       m.render(document.getElementById("demo1"), m(whiteprint.Button, {test: 'test Attribute', loading: true}, m('b', 'HI')))
       m.render(document.getElementById("demo2"), m(whiteprint.AnchorButton, {onclick: function(e) {console.log(e)}}, m('b', 'HI')))

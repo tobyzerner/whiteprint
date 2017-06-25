@@ -38,8 +38,13 @@ export abstract class AbstractButton extends AbstractComponent<IButtonAttrs> {
     protected currentKeyDown: number = null;
     protected elementRef?: HTMLElement;
 
+    // should be cleanup after https://github.com/lhorie/mithril.js/issues/1744
+    public oncreate({dom}: m.CVnodeDOM<IButtonAttrs>) {
+        this.elementRef = dom as HTMLElement;
+    }
+
     protected getCommonButtonAttrs(vnode: m.CVnode<IButtonAttrs>) {
-        const attrs = vnode.attrs || {} as IButtonAttrs;
+        const attrs: IButtonAttrs = vnode.attrs || {};
         const disabled = attrs.disabled || attrs.loading;
 
         const className = classNames(
@@ -58,18 +63,9 @@ export abstract class AbstractButton extends AbstractComponent<IButtonAttrs> {
             className,
             disabled,
             onclick: disabled ? undefined : attrs.onclick,
-            // should be cleanup after https://github.com/lhorie/mithril.js/issues/1744
             onkeydown: this.handleKeyDown,
             onkeyup: this.handleKeyUp,
         };
-    }
-
-    public oncreate({dom}: m.CVnodeDOM<IButtonAttrs>) {
-        this.elementRef = dom as HTMLElement;
-    }
-
-    public onupdate({dom}: m.CVnodeDOM<IButtonAttrs>) {
-        this.elementRef = dom as HTMLElement;
     }
 
     // we're casting as `any` to get around a somewhat opaque safeInvoke error
@@ -97,7 +93,7 @@ export abstract class AbstractButton extends AbstractComponent<IButtonAttrs> {
     }
 
     protected renderChildren(vnode: m.CVnode<IButtonAttrs>) {
-        const { loading, rightIconName, text } = vnode.attrs || {} as IButtonAttrs;
+        const { loading, rightIconName, text }: IButtonAttrs = vnode.attrs || {};
         const iconClasses = classNames(Classes.ICON_STANDARD, Classes.iconClass(rightIconName), Classes.ALIGN_RIGHT);
 
         const children = vnode.text ? <span key="text-child">{vnode.text}</span> : vnode.children;

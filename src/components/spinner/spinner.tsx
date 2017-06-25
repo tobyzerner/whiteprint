@@ -24,7 +24,7 @@ export interface ISpinnerAttrs extends m.Attributes {
 
 export class Spinner extends AbstractComponent<ISpinnerAttrs> {
     public view(vnode: m.CVnode<ISpinnerAttrs>) {
-        const { className, intent, value } = vnode.attrs || {} as ISpinnerAttrs;
+        const { className, intent, value }: ISpinnerAttrs = vnode.attrs || {};
         const classes = classNames(Classes.SPINNER, Classes.intentClass(intent), {
             "pt-no-spin": value != null,
         }, className);
