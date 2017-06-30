@@ -5,6 +5,8 @@
  * and https://github.com/palantir/blueprint/blob/master/PATENTS
  */
 
+import { CLAMP_MIN_MAX } from "./errors";
+
 // only accessible within this file, so use `Utils.isNodeEnv` from the outside.
 declare var process: { env: any };
 
@@ -28,6 +30,13 @@ export function safeInvoke<A, B, C, R>(
     arg1: A,
     arg2: B,
     arg3: C,
+): R;
+export function safeInvoke<A, B, C, D, R>(
+    func: ((arg1: A, arg2: B, arg3: C, arg4: D) => R) | undefined,
+    arg1: A,
+    arg2: B,
+    arg3: C,
+    arg4: D,
 ): R;
 // tslint:disable-next-line:ban-types
 export function safeInvoke(func: Function | undefined, ...args: any[]) {
@@ -60,7 +69,7 @@ export function approxEqual(a: number, b: number, tolerance = 0.00001) {
 /** Clamps the given number between min and max values. Returns value if within range, or closest bound. */
 export function clamp(val: number, min: number, max: number) {
     if (max < min) {
-        throw new Error("clamp: max cannot be less than min");
+        throw new Error(CLAMP_MIN_MAX);
     }
     return Math.min(Math.max(val, min), max);
 }
@@ -91,4 +100,4 @@ export function throttleEvent(target: EventTarget, eventName: string, newEventNa
     };
     target.addEventListener(eventName, func);
     return func;
-};
+}

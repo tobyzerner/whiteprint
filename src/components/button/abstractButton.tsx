@@ -2,10 +2,10 @@ import * as classNames from "classnames";
 import * as m from "mithril";
 
 import { AbstractComponent } from "../../abstractComponent";
+import { IActionAttrs } from "../../common/attrs";
 import * as Classes from "../../common/classes";
 import * as Keys from "../../common/keys";
-import { IActionAttrs } from "../../common/attrs";
-import { safeInvoke } from "../../common/utils";
+// import { safeInvoke } from "../../common/utils";
 import { Spinner } from "../spinner/spinner";
 
 export interface IButtonAttrs extends IActionAttrs {
