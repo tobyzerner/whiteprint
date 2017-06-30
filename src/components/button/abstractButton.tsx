@@ -4,10 +4,18 @@ import * as m from "mithril";
 import { AbstractComponent } from "../../abstractComponent";
 import * as Classes from "../../common/classes";
 import * as Keys from "../../common/keys";
+import { IActionAttrs } from "../../common/attrs";
 import { safeInvoke } from "../../common/utils";
 import { Spinner } from "../spinner/spinner";
 
-export interface IButtonAttrs extends m.Attributes {
+export interface IButtonAttrs extends IActionAttrs {
+    /**
+     * If set to `true`, the button will display in an active state.
+     * This is equivalent to setting `className="pt-active"`.
+     * @default false
+     */
+    active?: boolean;
+
     /** Name of the icon (the part after `pt-icon-`) to add to the button. */
     rightIconName?: string;
 
@@ -19,13 +27,6 @@ export interface IButtonAttrs extends m.Attributes {
     loading?: boolean;
 
     /**
-     * If set to `true`, the button will display in an active state.
-     * This is equivalent to setting `pt-active` via className.
-     * @default false
-     */
-    active?: boolean;
-
-    /**
      * HTML `type` attribute of button. Common values are `"button"` and `"submit"`.
      * Note that this prop has no effect on `AnchorButton`; it only affects `Button`.
      * @default "button"
@@ -35,11 +36,17 @@ export interface IButtonAttrs extends m.Attributes {
 
 export abstract class AbstractButton extends AbstractComponent<IButtonAttrs> {
     protected isActive = false;
-    protected currentKeyDown: number = null;
     protected elementRef?: HTMLElement;
 
-    // should be cleanup after https://github.com/lhorie/mithril.js/issues/1744
+    private currentKeyDown: number = null;
+
+    // TODO
+    // should be cleaned up after https://github.com/lhorie/mithril.js/issues/1744
     public oncreate({dom}: m.CVnodeDOM<IButtonAttrs>) {
+        this.elementRef = dom as HTMLElement;
+    }
+
+    public onupdate({dom}: m.CVnodeDOM<IButtonAttrs>) {
         this.elementRef = dom as HTMLElement;
     }
 
