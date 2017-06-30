@@ -1,0 +1,17 @@
+// Copyright 2016 Palantir Technologies, Inc. All rights reserved.
+// Licensed under the BSD-3 License as modified (the “License”); you may obtain a copy
+// of the license at https://github.com/palantir/blueprint/blob/master/LICENSE
+// and https://github.com/palantir/blueprint/blob/master/PATENTS
+
+.pt-portal {
+  // take the portal out of the document flow to prevent browsers from autoscrolling to the bottom
+  // of the document (where portals are appended) when programmatically focusing within a portal
+  // child element. also, don't use `fixed`, because then Tether'd elements won't reposition
+  // themselves properly as the document scrolls.
+  position: absolute;
+  // ensure content still offsets from the top of the document
+  top: 0;
+  // ensure content won't be horizontally scrunched
+  right: 0;
+  left: 0;
+}

@@ -1,2 +1,2 @@
 import "./blueprint.scss";
-export * from "./components"
+export * from "./components";
